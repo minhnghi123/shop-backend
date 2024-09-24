@@ -213,9 +213,6 @@ const createPost = async (req, res) => {
     req.body.position = totalProducts + 1;
   }
   req.body.position = parseInt(req.body.position);
-  if (req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
-  }
   // console.log(req.file);
 
   const newProduct = new productModel(req.body);
@@ -245,9 +242,6 @@ const editPatch = async (req, res) => {
   req.body.stock = parseInt(req.body.stock);
   if (req.body.position) {
     req.body.position = parseInt(req.body.position);
-  }
-  if (req.file) {
-    req.body.thumbnail = `/uploads/${req.file.filename}`;
   }
   await productModel.updateOne(
     {

@@ -1,18 +1,10 @@
 const express = require("express");
 const multer = require("multer");
-const productValidate = require("../../validate/admin/product.validate");
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./public/uploads/");
-  },
-  filename: function (req, file, cb) {
-    const fileName = `${Date.now()}-${file.originalname}`;
-    cb(null, fileName);
-  },
-});
-const upload = multer({ storage: storage });
+const upload = multer();
 const router = express.Router();
 const productController = require("../../controllers/admin/product.controller");
+const productValidate = require("../../validate/admin/product.validate");
+const uploadCloud = require("../../middleware/admin/addCloud.middleware");
 router.get("/", productController.index);
 router.patch("/status-change", productController.changeStatusByClick);
 router.patch("/status-multi-changes", productController.changeMultiStatus);
@@ -26,6 +18,7 @@ router.get("/create", productController.create);
 router.post(
   "/create",
   upload.single("thumbnail"),
+  uploadCloud.uploadCloudSingle,
   productValidate.createPost,
   productController.createPost
 );
@@ -34,6 +27,7 @@ router.get("/edit/:id", productController.edit);
 router.patch(
   "/edit/:id",
   upload.single("thumbnail"),
+  uploadCloud.uploadCloudSingle,
   productValidate.createPost,
   productController.editPatch
 );
