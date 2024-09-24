@@ -15,6 +15,30 @@ if (boxFilter) {
   if (currentStatus) boxFilter.value = currentStatus;
 }
 
+let sortSelect = document.querySelector("[sort-select]");
+
+if (sortSelect) {
+  let url = new URL(location.href);
+  sortSelect.addEventListener("change", () => {
+    const value = sortSelect.value;
+    if (value) {
+      // console.log(value);
+      const [keyName, keyValue] = value.split("-");
+      url.searchParams.set("keyName", keyName);
+      url.searchParams.set("keyValue", keyValue);
+    } else {
+      url.searchParams.delete("keyName");
+      url.searchParams.delete("keyValue");
+    }
+    location.href = url.href;
+  });
+  const keyName = url.searchParams.get("keyName");
+  const keyValue = url.searchParams.get("keyValue");
+  if (keyName && keyValue) {
+    sortSelect.value = `${keyName}-${keyValue}`;
+  }
+}
+
 const formSearch = document.querySelector("[form-search]");
 if (formSearch) {
   let url = new URL(location.href);

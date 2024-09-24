@@ -29,13 +29,20 @@ const index = async (req, res) => {
   if (status) {
     condition.status = status;
   }
+  let sort = {};
+  const keyName = req.query.keyName;
+  const keyValue = req.query.keyValue;
+  if (keyName && keyValue) {
+    // console.log(keyName, keyValue);
+    sort[keyName] = keyValue;
+  } else {
+    sort["position"] = "desc";
+  }
   const products = await productModel
     .find(condition)
     .limit(limitItems)
     .skip(skip)
-    .sort({
-      position: "desc",
-    });
+    .sort(sort);
 
   res.render("admin/pages/products/index.pug", {
     pageTitle: "Danh Sach San Pham",
