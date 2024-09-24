@@ -5,7 +5,7 @@ const app = express();
 require("dotenv").config();
 const port = process.env.PORT;
 const bodyParser = require("body-parser");
-
+const path = require("path");
 //show notifications
 const flash = require("express-flash");
 const cookieParser = require("cookie-parser");
@@ -35,6 +35,12 @@ database();
 
 const routeClient = require("./routes/client/index.route");
 const routeAdmin = require("./routes/admin/index.route");
+
+/* New Route to the TinyMCE Node module */
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
 
 //Prioritize admin over client
 routeAdmin.routeAdmin(app);
