@@ -5,5 +5,7 @@ const roleValidate = require("../../validate/admin/role.validate");
 //middleware and using controller to reduce codes and make clean
 router.get("/", roleController.index);
 router.get("/create", roleController.create);
+router.get("/edit/:id", roleController.edit);
+router.patch("/edit/:id", roleValidate.createPost, roleController.editPatch);
 router.post("/create", roleValidate.createPost, roleController.createPost);
 module.exports = router;
