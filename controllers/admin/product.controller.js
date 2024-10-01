@@ -1,4 +1,5 @@
 const productModel = require("../../models/product.model");
+const ProductCategory = require("../../models/product-category.model");
 const system = require("../../config/system");
 const index = async (req, res) => {
   let condition = {
@@ -210,8 +211,13 @@ const deletePermanent = async (req, res) => {
   });
 };
 const create = async (req, res) => {
+  const listCategory = await ProductCategory.find({
+    deleted: false,
+  });
+  console.log(listCategory);
   res.render("admin/pages/products/create.pug", {
     pageTitle: "Thêm mới sản phẩm ",
+    listCategory,
   });
 };
 const createPost = async (req, res) => {
@@ -231,6 +237,9 @@ const createPost = async (req, res) => {
 const edit = async (req, res) => {
   const id = req.params.id;
   // console.log(id);
+  const listCategory = await ProductCategory.find({
+    deleted: false,
+  });
   const product = await productModel.findOne({
     _id: id,
     deleted: false,
@@ -239,6 +248,7 @@ const edit = async (req, res) => {
   res.render("admin/pages/products/edit.pug", {
     title: " Trang Chỉnh Sửa Sản Phẩm",
     product: product,
+    listCategory,
   });
 };
 
@@ -250,6 +260,7 @@ const editPatch = async (req, res) => {
   if (req.body.position) {
     req.body.position = parseInt(req.body.position);
   }
+  console.log(req.body);
   await productModel.updateOne(
     {
       _id: id,
