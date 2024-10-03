@@ -38,9 +38,9 @@
   transition: background 0.3s ease, width 0.3s ease;
 }
 
-.body .sider:hover {
+/* .body .sider:hover {
   width: 180px;
-}
+} */
 
 .body .main {
   margin: 15px;
@@ -50,9 +50,9 @@
   transition: left 0.3s ease;
 }
 
-.body:hover .main {
+/* .body:hover .main {
   left: 180px;
-}
+} */
 /* End Body */
 
 /* Sider */
