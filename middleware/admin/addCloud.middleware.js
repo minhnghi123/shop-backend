@@ -24,7 +24,7 @@ module.exports.uploadCloudSingle = (req, res, next) => {
     async function upload(req) {
       let result = await streamUpload(req);
       req.body[req.file.fieldname] = result.url;
-      console.log(result);
+      // console.log(result);
       next();
     }
 
