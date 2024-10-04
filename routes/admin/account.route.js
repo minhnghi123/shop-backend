@@ -6,6 +6,13 @@ const multer = require("multer");
 const upload = multer();
 router.get("/", accountController.index);
 router.get("/create", accountController.create);
+router.get("/edit/:id", accountController.edit);
+router.patch(
+  "/edit/:id",
+  upload.single("avatar"),
+  uploadCloud.uploadCloudSingle,
+  accountController.editPatch
+);
 router.post(
   "/create",
   upload.single("avatar"),

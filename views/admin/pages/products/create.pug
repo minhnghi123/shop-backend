@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-filter.pug
 block main
+ if(role.permissions.includes("products_create"))
   h1 #{pageTitle}
   form(
     action=`/${prefixAdmin}/products/create`

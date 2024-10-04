@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-filter.pug
 block main
+ if(role.permissions.includes("products_edit"))
   h1 #{title}
   form(
     action=`/${prefixAdmin}/products/edit/${product._id}?_method=PATCH`

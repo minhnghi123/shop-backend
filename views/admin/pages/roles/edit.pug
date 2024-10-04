@@ -1,31 +1,32 @@
 extends ../../layouts/default.pug
 block main
-  h1 #{pageTitle}
-  form(
-    action=`/${prefixAdmin}/roles/edit/${role._id}?_method=PATCH`
-    method="POST"
-  )
-    div(class="form-group")
-      label(for="title") Tiêu đề
-      input(
-        type="text"
-        class="form-control"
-        id="title"
-        name="title"
-        value = role.title
-        required
-      )
-    div(class="form-group")
-      label(for="desc") Mô tả
-      input(
-        type="text"
-        class="form-control"
-        id="desc"
-        value = role.description
-        name="description"
-      )
-    div(class="form-group")
-      button(
-        type="submit"
-        class="btn btn-primary"
-      ) Update
+  if(role.permissions.includes("roles_edit"))
+    h1 #{pageTitle}
+    form(
+      action=`/${prefixAdmin}/roles/edit/${role._id}?_method=PATCH`
+      method="POST"
+    )
+      div(class="form-group")
+        label(for="title") Tiêu đề
+        input(
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          value = role.title
+          required
+        )
+      div(class="form-group")
+        label(for="desc") Mô tả
+        input(
+          type="text"
+          class="form-control"
+          id="desc"
+          value = role.description
+          name="description"
+        )
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Update
