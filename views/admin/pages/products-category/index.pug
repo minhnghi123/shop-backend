@@ -8,7 +8,7 @@ block main
         .col-8
         .col-4.text-right
 
-         if(role.permissions.includes("products_category_create"))
+        if(role.permissions.includes("products-category_create"))
           a(
             href=`/${prefixAdmin}/products-category/create`
             class="btn btn-outline-success"
@@ -66,12 +66,12 @@ block main
               class="btn btn-info btn-sm"
               href=`/${prefixAdmin}/products-category/detail/${item.id}`
             ) Chi tiết
-            if(role.permissions.includes("products_category_edit"))
+            if(role.permissions.includes("products-category_edit"))
               a(
                 class="btn btn-warning btn-sm ml-1"
                 href=`/${prefixAdmin}/products-category/edit/${item.id}`
               ) Sửa
-            if(role.permissions.includes("products_category_delete"))
+            if(role.permissions.includes("products-category_delete"))
               button(
                 class="btn btn-danger btn-sm ml-1"
                 item-id=item.id

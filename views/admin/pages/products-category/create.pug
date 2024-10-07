@@ -1,6 +1,6 @@
 extends ../../layouts/default.pug
 block main
-  if(role.permissions.includes("products_category_create"))
+  if(role.permissions.includes("products-category_create"))
     h1 #{pageTitle}
     form(
       action=`/${prefixAdmin}/products-category/create`

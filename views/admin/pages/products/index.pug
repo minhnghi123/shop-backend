@@ -80,6 +80,7 @@ block main
         th Tiêu đề
         th Giá
         th Vị Trí
+        th Đã Tạo
         th Trạng thái
         th Hành động
 
@@ -111,6 +112,9 @@ block main
                 input-position
                 style="width: 60px;"
               )
+          td 
+            p #{product.fullName}
+            p #{product.createdAtFormat}
            
           td
             if(product.status==="active")

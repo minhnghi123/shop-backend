@@ -1,6 +1,8 @@
 const productModel = require("../../models/product.model");
 const ProductCategory = require("../../models/product-category.model");
 const system = require("../../config/system");
+const Account = require("../../models/account.model");
+const moment = require("moment-timezone");
 const index = async (req, res) => {
   let condition = {
     deleted: false,
@@ -39,12 +41,28 @@ const index = async (req, res) => {
   } else {
     sort["position"] = "desc";
   }
+
   const products = await productModel
     .find(condition)
     .limit(limitItems)
     .skip(skip)
     .sort(sort);
-
+  for (const element of products) {
+    const userCreated = await Account.findOne({
+      _id: element.createdBy,
+    });
+    if (userCreated) {
+      element.fullName = userCreated.fullName;
+    } else {
+      element.fullName = "";
+    }
+    // console.log(element);
+    if (element.createdAt) {
+      element.createdAtFormat = moment
+        .tz(element.createdAt, "Asia/Ho_Chi_Minh")
+        .fromNow();
+    }
+  }
   res.render("admin/pages/products/index.pug", {
     pageTitle: "Danh Sach San Pham",
     products,
@@ -227,7 +245,8 @@ const createPost = async (req, res) => {
   }
   req.body.position = parseInt(req.body.position);
   // console.log(req.file);
-
+  req.body.createdBy = res.locals.user._id;
+  req.body.createdAt = new Date();
   const newProduct = new productModel(req.body);
   await newProduct.save();
   req.flash("success", "Thêm mới sản phẩm thành công");
