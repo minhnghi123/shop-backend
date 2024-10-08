@@ -51,15 +51,28 @@ const index = async (req, res) => {
     const userCreated = await Account.findOne({
       _id: element.createdBy,
     });
+    const userEdited = await Account.findOne({
+      _id: element.editedBy,
+    });
     if (userCreated) {
       element.fullName = userCreated.fullName;
     } else {
       element.fullName = "";
     }
+    if (userEdited) {
+      element.fullNameEdited = userEdited.fullName;
+    } else {
+      element.fullNameEdited = "";
+    }
     // console.log(element);
     if (element.createdAt) {
       element.createdAtFormat = moment
         .tz(element.createdAt, "Asia/Ho_Chi_Minh")
+        .fromNow();
+    }
+    if (element.editedAt) {
+      element.editedAtFormat = moment
+        .tz(element.editedAt, "Asia/Ho_Chi_Minh")
         .fromNow();
     }
   }
@@ -111,7 +124,10 @@ const deleteMulti = async (req, res) => {
   if (content) {
     try {
       const { arrID } = content;
-      await productModel.updateMany({ _id: arrID }, { deleted: true });
+      await productModel.updateMany(
+        { _id: arrID },
+        { deleted: true, deletedBy: res.locals.user._id, deletedAt: new Date() }
+      );
       req.flash("success", "Delete Successfully. Let go to the rubbish page !");
       res.json({
         success: "200",
@@ -127,7 +143,10 @@ const deletePer = async (req, res) => {
   if (content) {
     try {
       const { idProduct } = content;
-      await productModel.updateOne({ _id: idProduct }, { deleted: true });
+      await productModel.updateOne(
+        { _id: idProduct },
+        { deleted: true, deletedBy: res.locals.user._id, deletedAt: new Date() }
+      );
       console.log("Delete successfully !");
       req.flash("success", "Delete Successfully. Let go to the rubbish page !");
       res.json({
@@ -171,6 +190,21 @@ const rubbishPage = async (req, res) => {
     .find(condition)
     .limit(limitItems)
     .skip(skip);
+  for (const element of products) {
+    const accountDeleted = await Account.findOne({
+      _id: element.deletedBy,
+    });
+    if (accountDeleted) {
+      element.deletedFullName = accountDeleted.fullName;
+    } else {
+      element.deletedFullName = "";
+    }
+    if (element.deletedAt) {
+      element.deletedAtFormat = moment
+        .tz(element.deletedAt, "Asia/Ho_Chi_Minh")
+        .fromNow();
+    }
+  }
   res.render("admin/pages/products/rubbish.pug", {
     pageTitle: "Rubbish Page",
     products,
@@ -276,6 +310,8 @@ const editPatch = async (req, res) => {
   req.body.price = parseInt(req.body.price);
   req.body.discountPercentage = parseInt(req.body.discountPercentage);
   req.body.stock = parseInt(req.body.stock);
+  req.body.editedBy = res.locals.user._id;
+  req.body.editedAt = new Date();
   if (req.body.position) {
     req.body.position = parseInt(req.body.position);
   }

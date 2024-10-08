@@ -80,7 +80,8 @@ block main
         th Tiêu đề
         th Giá
         th Vị Trí
-        th Đã Tạo
+        th Created By
+        th Edit By
         th Trạng thái
         th Hành động
 
@@ -115,7 +116,13 @@ block main
           td 
             p #{product.fullName}
             p #{product.createdAtFormat}
-           
+          if(product.fullNameEdited)
+            td 
+              p #{product.fullNameEdited}
+              p #{product.editedAtFormat}
+          else 
+            td
+              p None
           td
             if(product.status==="active")
               if(role.permissions.includes("products_edit"))

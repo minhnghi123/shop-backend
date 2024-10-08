@@ -39,6 +39,7 @@ block main
         th STT
         th Hình ảnh
         th Tiêu đề
+        th Deleted By
         th Hành động
 
     tbody
@@ -59,6 +60,9 @@ block main
               height="auto"
             )
           td #{product.title}
+          td  
+            p #{product.deletedFullName} 
+            p #{product.deletedAtFormat}
           td
             .mt-3
             button(class="btn btn-warning btn-sm ml-1 " 

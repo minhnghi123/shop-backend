@@ -1,0 +1,42 @@
+extends ../../layouts/default.pug
+
+block main
+ link(rel="stylesheet", href="/admin/css/my-profile.css")
+ .profile-container
+      header.profile-header
+        h1 #{account.fullName}'s Profile
+        .avatar-container
+          img.avatar(src=account.avatar alt="Profile Picture")
+        
+      section.profile-details
+        h2 Profile Information
+        ul
+          li
+            strong Full Name:
+            | #{account.fullName}
+          li
+            strong Email:
+            | #{account.email}
+          li
+            strong Phone:
+            | #{account.phone}
+          li
+            strong Role ID:
+            | #{account.role_id}
+          li
+            strong Status:
+            | #{account.status}
+
+      section.account-info
+        h2 Account Information
+        ul
+          li
+            strong Account Created:
+            | #{new Date(account.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          li
+            strong Last Updated:
+            | #{new Date(account.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+
+      .profile-actions
+        button.btn.btn-primary(type="button") Edit Profile
+        button.btn.btn-danger(type="button") Delete Account

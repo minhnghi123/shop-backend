@@ -57,3 +57,13 @@ module.exports.editPatch = async (req, res) => {
   req.flash("success", "Update successfully !");
   res.redirect(`back`);
 };
+module.exports.my_profile = async (req, res) => {
+  const account = await Account.findOne({
+    _id: res.locals.user._id,
+  });
+  console.log(account);
+  res.render("admin/pages/accounts/my-profile", {
+    pageTitle: "My Profile",
+    account,
+  });
+};

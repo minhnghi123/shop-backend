@@ -6,6 +6,7 @@ const multer = require("multer");
 const upload = multer();
 router.get("/", accountController.index);
 router.get("/create", accountController.create);
+router.get("/my-profile", accountController.my_profile);
 router.get("/edit/:id", accountController.edit);
 router.patch(
   "/edit/:id",

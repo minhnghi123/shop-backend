@@ -13,13 +13,17 @@ const productSchema = new mongoose.Schema({
   category_id: String,
   createdBy: String,
   createdAt: Date,
-  updatedBy: String,
-  updatedAt: Date,
+  editedBy: String,
+  editedAt: Date,
   deletedBy: String,
   deletedAt: Date,
   deleted: {
     type: Boolean,
     default: false,
+  },
+  featured: {
+    type: String,
+    default: "0",
   },
   slug: {
     type: String,
