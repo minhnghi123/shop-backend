@@ -26,7 +26,7 @@ const dele = (req, res) => {
 };
 const category = async (req, res) => {
   const slugCategory = req.params.slugCategory;
-  // console.log(slugCategory);
+  console.log(slugCategory);
   const specificCategory = await productCategory.findOne({
     slug: slugCategory,
     status: "active",
@@ -46,7 +46,7 @@ const category = async (req, res) => {
       await getAllCategory(element._id);
     }
   };
-  await getAllCategory(specificCategory._id);
+  await getAllCategory(specificCategory.id);
   // console.log(childCategory);
   const products = await Products.find({
     category_id: {
@@ -63,8 +63,17 @@ const category = async (req, res) => {
   }
   // console.log(products);
   res.render("client/pages/products/index", {
-    pageTitle: category.title,
+    pageTitle: specificCategory.title,
     products,
   });
 };
-module.exports = { home, edit, dele, category };
+const detail = async (req, res) => {
+  const specificProduct = await productModel.findOne({
+    slug: req.params.slugProduct,
+  });
+  res.render("client/pages/products/detail", {
+    pageTitle: "Products Pages",
+    product: specificProduct,
+  });
+};
+module.exports = { home, edit, dele, category, detail };

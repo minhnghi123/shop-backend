@@ -1,17 +1,23 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
+
 block main
   .container.my-3
     +box-head(pageTitle)
   
     .row
-        each product in products 
-          .col-6.mb-3
-            .product-item
-              .inner-image
-                img(src=product.thumbnail, alt=product.title)
-              .inner-content
-                h3.inner-title #{product.title}
-                .inner-price-new #{product.newPrice}$
-                .inner-price-old #{product.price}$
-                .inner-discount -#{product.discountPercentage}$
+      each product in products 
+        .col-6.col-md-3.mb-3
+          .product-item
+            a(href=`/products/detail/${product.slug}`)
+              .card
+                .inner-image
+                  img.card-img-top(src=product.thumbnail, alt=product.title)
+                .card-body
+                  h3.inner-title.card-title #{product.title}
+                  .inner-price
+                    .inner-price-new #{product.newPrice}₫
+                    if product.oldPrice
+                      .inner-price-old #{product.oldPrice}₫
+                    if product.discountPercentage
+                      .inner-discount -#{product.discountPercentage}%
