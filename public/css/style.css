@@ -383,3 +383,46 @@
   line-height: 1.6;
   margin-top: 20px;
 }
+/* ------------------------------------------------------------------------------------ */
+/* Header Container */
+.header {
+  background-color: #f8f9fa;
+  padding: 15px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo Styling */
+.inner-logo img {
+  max-width: 150px;
+  transition: transform 0.3s ease;
+}
+.inner-logo img:hover {
+  transform: scale(1.1);
+}
+/* Search Bar Styling */
+.header .form-control {
+  width: 100%;
+  border: 1px solid #ced4da;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+}
+
+.header .btn-primary {
+  border-radius: 0 4px 4px 0;
+  background-color: #007bff;
+  border: none;
+  font-size: 1rem;
+}
+
+.header .btn-primary:hover {
+  background-color: #0056b3;
+}
+/* Cart Link Styling */
+.inner-menu ul li a[href="/cart"] {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.inner-menu ul li a[href="/cart"]:hover {
+  color: #c0392b;
+}
