@@ -2,55 +2,58 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main
-  .container.my-5
-    .row
-      // Cột ảnh sản phẩm
-      .col-md-6
-        .product-images
-          img(src=product.thumbnail, alt=product.title, class="img-fluid mb-3")
-    
-      // Cột thông tin sản phẩm
-      .col-md-6
-        .product-info
-          h1 #{product.title}
-          .product-price
-            span.new-price #{(product.price - product.price * product.discountPercentage / 100).toFixed(2)}$ 
-            if product.discountPercentage > 0
-              span.old-price #{product.price}$ (-#{product.discountPercentage}%)
-          
-          .product-meta
-          
-            p Còn lại trong kho: #{product.stock}
-          
-          // Hiển thị số lượng sản phẩm còn trong kho
-          .quantity
-            h5 Số lượng
-            .input-group
-            
-              input.form-control.quantity-input(type="number" value="1" min="1" id="quantity-input")
-            
-          
-          .product-actions.mt-3
-            a.btn.btn-warning.btn-lg(href="#") Thêm vào giỏ hàng
-            a.btn.btn-dark.btn-lg(href="#") Mua ngay
-        
-        p in here
+  .product-detail
+    .container.my-5
+      .row
+        .col-md-6
+          .inner-thumb
+            img(src=product.thumbnail, alt=product.title, class="img-fluid rounded")
+        .col-md-6
+          h1(class="inner-title text-primary") #{product.title}
 
-  // Tab thông tin sản phẩm
-  .container.mt-5
-    .product-tabs
-      ul.nav.nav-tabs
-        li.nav-item
-          a.nav-link.active(href="#description", data-toggle="tab") Mô tả sản phẩm
-        li.nav-item
-          a.nav-link(href="#returnPolicy", data-toggle="tab") Quy định đổi trả
-        li.nav-item
-          a.nav-link(href="#membership", data-toggle="tab") Membership
-      
-      .tab-content.mt-3
-        .tab-pane.active#description
-          p !{product.description}
-        .tab-pane#returnPolicy
-          p Quy định đổi trả chi tiết...
-        .tab-pane#membership
-          p Thông tin membership...
+          if (product.category)
+            div(class="inner-category mb-2")
+              span.text-muted Danh mục: 
+              a(href=`/products/${product.category.slug}`, class="text-decoration-none text-dark") #{product.category.title}
+
+          if (product.priceNew)
+            div(class="inner-price-new text-danger h4") Giá: #{product.priceNew}$
+
+          if (product.price)
+         
+          div(class="inner-price-old text-muted text-decoration-line-through")   
+            <i>#{product.price}$
+
+          if (product.discountPercentage)
+            div(class="inner-percent text-success mb-2") 
+              span Giảm tới #{product.discountPercentage}%
+
+          if (product.stock)
+            div(class="inner-stock text-secondary") Còn lại <span class="font-weight-bold">#{product.stock}</span> sản phẩm
+
+          form(
+            action=`/cart/add/${product.id}`
+            method="POST"
+            class="mt-3"
+          )
+            input(
+              class="form-control mb-2"
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              max=product.stock
+            )
+            button(
+              type="submit"
+              class="btn btn-success btn-block"
+            ) Thêm vào giỏ hàng
+
+    hr
+
+    .container.my-5
+      .row
+        .col-12
+          +box-head("Mô tả sản phẩm")
+          .inner-desc
+            p !{product.description}

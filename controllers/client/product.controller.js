@@ -71,6 +71,11 @@ const detail = async (req, res) => {
   const specificProduct = await productModel.findOne({
     slug: req.params.slugProduct,
   });
+
+  specificProduct.priceNew =
+    (1 - specificProduct.discountPercentage / 100) * specificProduct.price;
+  specificProduct.priceNew = specificProduct.priceNew.toFixed(0);
+
   res.render("client/pages/products/detail", {
     pageTitle: "Products Pages",
     product: specificProduct,
