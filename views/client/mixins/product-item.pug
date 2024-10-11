@@ -1,0 +1,15 @@
+mixin product-item(product)
+   .col-6.col-md-3.mb-3
+        .product-item
+        a(href=`/products/detail/${product.slug}`)
+            .card
+            .inner-image
+                img.card-img-top(src=product.thumbnail, alt=product.title)
+            .card-body
+                h3.inner-title.card-title #{product.title}
+                .inner-price
+                .inner-price-new #{product.priceNew}₫
+                if product.oldPrice
+                    .inner-price-old #{product.oldPrice}₫
+                if product.discountPercentage
+                    .inner-discount -#{product.discountPercentage}%
