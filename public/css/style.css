@@ -426,3 +426,12 @@
 .inner-menu ul li a[href="/cart"]:hover {
   color: #c0392b;
 }
+/* Alert Message */
+.alert-message {
+  position: fixed;
+  top: 30px;
+  right: 20px;
+  z-index: 9999;
+}
+
+/* End Alert Message */

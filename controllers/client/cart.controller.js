@@ -80,3 +80,28 @@ module.exports.delete = async (req, res) => {
   req.flash("success", "Đã xóa khỏi giỏ hàng");
   res.redirect("back");
 };
+module.exports.updatePatch = async (req, res) => {
+  const currentCart = await Cart.findOne({
+    _id: req.cookies.cartId,
+  });
+  let currentArray = currentCart.products;
+  let updateProduct = currentArray.find((item) => {
+    return item.productId === req.body.productId;
+  });
+  // console.log(updateProduct);
+  updateProduct.quantity = parseInt(req.body.quantity);
+  // console.log(updateProduct);
+  await Cart.updateOne(
+    {
+      _id: req.cookies.cartId,
+    },
+    {
+      products: currentArray,
+    }
+  );
+  req.flash("success", "Cập nhật thành công !");
+  res.json({
+    code: "success",
+    message: "Cập nhật thành công!",
+  });
+};
