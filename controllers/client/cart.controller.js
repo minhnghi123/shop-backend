@@ -57,3 +57,26 @@ module.exports.index = async (req, res) => {
     total: total,
   });
 };
+module.exports.delete = async (req, res) => {
+  const idProduct = req.params.id;
+  // console.log(idProduct);
+  const currentCart = await Cart.findOne({
+    _id: req.cookies.cartId,
+  });
+  // console.log(currentCart);
+  let currentArray = currentCart.products;
+  let newArray = [];
+  newArray = currentArray.filter((item) => {
+    return item.productId != idProduct;
+  });
+  await Cart.updateOne(
+    {
+      _id: req.cookies.cartId,
+    },
+    {
+      products: newArray,
+    }
+  );
+  req.flash("success", "Đã xóa khỏi giỏ hàng");
+  res.redirect("back");
+};
