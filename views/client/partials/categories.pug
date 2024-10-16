@@ -5,7 +5,7 @@
   .row.px-xl-5.pb-3
     each category in categories
       .col-lg-3.col-md-4.col-sm-6.pb-1
-        a.text-decoration-none(href)
+        a.text-decoration-none(href=`/products/${category.slug}`)
           .cat-item.d-flex.align-items-center.mb-4
             .overflow-hidden(style="width: 100px; height: 100px")
               img.img-fluid(src=category.thumbnail, alt)
