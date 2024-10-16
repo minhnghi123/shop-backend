@@ -1,7 +1,13 @@
 mixin sub-category(items)
-  ul
     each item in items
-      li
-        a(href=`/products/${item.slug}`) #{item.title}
         if(item.children && item.children.length > 0)
-          +sub-category(item.children)
+          a.nav-link.dropdown-toggle(href=`/products/${item.slug}`, data-toggle="dropdown")
+            |#{item.title}
+            i.fa.fa-angle-right.float-right.mt-1
+            .dropdown-menu.position-absolute.rounded-0.border-0.m-0
+              +sub-category(item.children)
+        else 
+          a.nav-item.nav-link(href=`/products/${item.slug}`) #{item.title}
+
+       
+          

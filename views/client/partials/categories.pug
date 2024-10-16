@@ -1,0 +1,18 @@
+//  Categories Start 
+.container-fluid.pt-5
+  h2.section-title.position-relative.text-uppercase.mx-xl-5.mb-4
+    span.bg-secondary.pr-3 Categories
+  .row.px-xl-5.pb-3
+    each category in categories
+      .col-lg-3.col-md-4.col-sm-6.pb-1
+        a.text-decoration-none(href)
+          .cat-item.d-flex.align-items-center.mb-4
+            .overflow-hidden(style="width: 100px; height: 100px")
+              img.img-fluid(src=category.thumbnail, alt)
+            .flex-fill.pl-3
+              h6 #{category.title}
+              if(category.countProducts)
+                small.text-body #{category.countProducts} Sản phẩm
+              else 
+                small.text-body Đang cập nhật
+//  Categories End 

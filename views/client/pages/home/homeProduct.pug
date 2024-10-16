@@ -1,0 +1,8 @@
+extends ../../layouts/default.pug
+include ../../mixins/product-newversion.pug
+block main
+  .container-fluid.pt-5.pb-3
+    h2.section-title.position-relative.text-uppercase.mx-xl-5.mb-4
+      span.bg-secondary.pr-3 Featured Products
+    .row.px-xl-5
+      +productNewVersion(products)

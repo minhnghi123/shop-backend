@@ -1,59 +1,130 @@
-extends ../../layouts/default.pug
+extends ../../layouts/cartDefault.pug
 include ../../mixins/box-head.pug
-
 block main
-  .product-detail
-    .container.my-5
-      .row
-        .col-md-6
-          .inner-thumb
-            img(src=product.thumbnail, alt=product.title, class="img-fluid rounded")
-        .col-md-6
-          h1(class="inner-title text-primary") #{product.title}
+  .row.px-xl-5
 
-          if (product.category)
-            div(class="inner-category mb-2")
-              span.text-muted Danh mục: 
-              a(href=`/products/${product.category.slug}`, class="text-decoration-none text-dark") #{product.category.title}
+    .col-lg-5.mb-30
+      #product-carousel.carousel.slide(data-ride="carousel")
+        .carousel-inner.bg-light
+          .carousel-item.active
+            img.w-100.h-100(src=product.thumbnail, alt="Image")
+          .carousel-item
+            img.w-100.h-100(src=product.thumbnail, alt="Image")
+          .carousel-item
+            img.w-100.h-100(src=product.thumbnail, alt="Image")
+          .carousel-item
+            img.w-100.h-100(src=product.thumbnail, alt="Image")
+        a.carousel-control-prev(href="#product-carousel", data-slide="prev")
+          i.fa.fa-2x.fa-angle-left.text-dark
+        a.carousel-control-next(href="#product-carousel", data-slide="next")
+          i.fa.fa-2x.fa-angle-right.text-dark
+    .col-lg-7.h-auto.mb-30
+      .h-100.bg-light.p-30
+        h3 #{product.title}
+        .d-flex.mb-3
+          .text-primary.mr-2
+            small.fas.fa-star
+            small.fas.fa-star
+            small.fas.fa-star
+            small.fas.fa-star-half-alt
+            small.far.fa-star
+          small.pt-1 (99 Reviews)
+        h3.font-weight-semi-bold.mb-4 $#{product.priceNew}
+        form(action=`/cart/add/${product.id}` method="POST")
+          .d-flex.mb-3
+            strong.text-dark.mr-3 Sizes:
+            
+            .custom-control.custom-radio.custom-control-inline
+              input.custom-control-input#size-1(type="radio", name="size" value="XS")
+              label.custom-control-label(for="size-1") XS
+            .custom-control.custom-radio.custom-control-inline
+              input.custom-control-input#size-2(type="radio", name="size" value="S")
+              label.custom-control-label(for="size-2") S
+            .custom-control.custom-radio.custom-control-inline
+              input.custom-control-input#size-3(type="radio", name="size" value="M")
+              label.custom-control-label(for="size-3") M
+            .custom-control.custom-radio.custom-control-inline
+              input.custom-control-input#size-4(type="radio", name="size" value="L")
+              label.custom-control-label(for="size-4") L
+            .custom-control.custom-radio.custom-control-inline
+                input.custom-control-input#size-5(type="radio", name="size" value="XL")
+                label.custom-control-label(for="size-5") XL
+          .d-flex.mb-4
+            strong.text-dark.mr-3 Colors:
+            .custom-control.custom-radio.custom-control-inline
+              input.custom-control-input#color-1(type="radio", name="color" value="Black")
+              label.custom-control-label(for="color-1") Black
+            .custom-control.custom-radio.custom-control-inline
+              input.custom-control-input#color-2(type="radio", name="color" value="White")
+              label.custom-control-label(for="color-2") White
+          .d-flex.align-items-center.mb-4.pt-2
+            .input-group.quantity.mr-3(style="width: 130px;")
+              input.form-control.bg-secondary.border-0.text-center(type="number", name="quantity" value="1" min="1" max=product.stock)
 
-          if (product.priceNew)
-            div(class="inner-price-new text-danger h4") Giá: #{product.priceNew}$
-
-          if (product.price)
-         
-          div(class="inner-price-old text-muted text-decoration-line-through")   
-            <i>#{product.price}$
-
-          if (product.discountPercentage)
-            div(class="inner-percent text-success mb-2") 
-              span Giảm tới #{product.discountPercentage}%
-
-          if (product.stock)
-            div(class="inner-stock text-secondary") Còn lại <span class="font-weight-bold">#{product.stock}</span> sản phẩm
-
-          form(
-            action=`/cart/add/${product.id}`
-            method="POST"
-            class="mt-3"
-          )
-            input(
-              class="form-control mb-2"
-              type="number"
-              name="quantity"
-              value="1"
-              min="1"
-              max=product.stock
-            )
-            button(
-              type="submit"
-              class="btn btn-success btn-block"
-            ) Thêm vào giỏ hàng
-
-    hr
-
-    .container.my-5
-      .row
-        .col-12
-          +box-head("Mô tả sản phẩm")
-          .inner-desc
+          button(class="btn btn-primary px-3" type="submit")
+              i.fa.fa-shopping-cart.mr-1
+              |  Thêm vào giỏ hàng
+          .d-flex.pt-2
+          strong.text-dark.mr-2 Share on:
+          .d-inline-flex
+            a.text-dark.px-2(href)
+              i.fab.fa-facebook-f
+            a.text-dark.px-2(href)
+              i.fab.fa-twitter
+            a.text-dark.px-2(href)
+              i.fab.fa-linkedin-in
+            a.text-dark.px-2(href)
+              i.fab.fa-pinterest
+  .row.px-xl-5
+    .col
+      .bg-light.p-30
+        .nav.nav-tabs.mb-4
+          a.nav-item.nav-link.text-dark.active(data-toggle="tab", href="#tab-pane-1") Thông tin
+          a.nav-item.nav-link.text-dark(data-toggle="tab", href="#tab-pane-3") Bình Luận (1)
+        .tab-content
+          .tab-pane.fade.show.active#tab-pane-1
+            h4.mb-3 Thông tin sản phẩm
             p !{product.description}
+
+          .tab-pane.fade#tab-pane-3
+            .row
+              .col-md-6
+                h4.mb-4 1 review for "Product Name"
+                .media.mb-4
+                  img.img-fluid.mr-3.mt-1(src="img/user.jpg", alt="Image", style="width: 45px;")
+                  .media-body
+                    h6
+                      | John Doe
+                      small
+                        |  - 
+                        i 01 Jan 2045
+                    .text-primary.mb-2
+                      i.fas.fa-star
+                      i.fas.fa-star
+                      i.fas.fa-star
+                      i.fas.fa-star-half-alt
+                      i.far.fa-star
+                    p Diam amet duo labore stet elitr ea clita ipsum, tempor labore accusam ipsum et no at. Kasd diam tempor rebum magna dolores sed sed eirmod ipsum.
+              .col-md-6
+                h4.mb-4 Leave a review
+                small Your email address will not be published. Required fields are marked *
+                .d-flex.my-3
+                  p.mb-0.mr-2 Your Rating * :
+                  .text-primary
+                    i.far.fa-star
+                    i.far.fa-star
+                    i.far.fa-star
+                    i.far.fa-star
+                    i.far.fa-star
+                form
+                  .form-group
+                    label(for="message") Your Review *
+                    textarea#message.form-control(cols="30", rows="5")
+                  .form-group
+                    label(for="name") Your Name *
+                    input.form-control#name(type="text")
+                  .form-group
+                    label(for="email") Your Email *
+                    input.form-control#email(type="email")
+                  .form-group.mb-0
+                    input.btn.btn-primary.px-3(type="submit", value="Leave Your Review")

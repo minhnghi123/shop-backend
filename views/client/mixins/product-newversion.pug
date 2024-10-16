@@ -1,0 +1,26 @@
+mixin productNewVersion(items)
+    each item in items
+        .col-lg-3.col-md-4.col-sm-6.pb-1
+            .product-item.bg-light.mb-4
+                .product-img.position-relative.overflow-hidden
+                    img.img-fluid.w-100(src=item.thumbnail, alt)
+                    .product-action
+                        a.btn.btn-outline-dark.btn-square(href=`/products/detail/${item.slug}`)
+                            i.fa.fa-shopping-cart
+                        a.btn.btn-outline-dark.btn-square(href)
+                            i.far.fa-heart
+                    
+                .text-center.py-4
+                    a.h6.text-decoration-none.text-truncate(href=`/products/detail/${item.slug}`) #{item.title}
+                    .d-flex.align-items-center.justify-content-center.mt-2
+                        h5 $#{item.priceNew}
+                        h6.text-muted.ml-2
+                        del $#{item.price}
+                    .d-flex.align-items-center.justify-content-center.mb-1
+                        small.fa.fa-star.text-primary.mr-1
+                        small.fa.fa-star.text-primary.mr-1
+                        small.fa.fa-star.text-primary.mr-1
+                        small.fa.fa-star.text-primary.mr-1
+                        small.fa.fa-star.text-primary.mr-1
+                        small (99)
+                

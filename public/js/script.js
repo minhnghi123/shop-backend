@@ -5,30 +5,31 @@ if (notifications) {
   }, 2500);
 }
 
-const cartTable = document.querySelector("[cart-table]");
-// console.log(cartTable);
-if (cartTable) {
-  const listInput = cartTable.querySelectorAll("input[name='quantity']");
-  listInput.forEach((item) => {
-    item.addEventListener("change", () => {
-      const productId = item.getAttribute("item-id");
-      const quantity = item.value;
-      fetch("/cart/update", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "PATCH",
-        body: JSON.stringify({
-          productId: productId,
-          quantity: quantity,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.code == "success") {
-            location.reload();
-          }
-        });
-    });
-  });
-}
+// const cartTable = document.querySelector("[cart-table]");
+// if (cartTable) {
+//   const buttonTmp = cartTable.querySelectorAll("input-group-btn");
+//   const buttonMain = buttonTmp.querySelectorAll(button);
+//   buttonMain.forEach((item) => {
+//     item.addEventListener("click", () => {
+//       const productId = item.getAttribute("productId");
+//       const input = cartTable.querySelector(`[item-id = ${productId}]`);
+//       const quantity = input.value;
+//       fetch("/cart/update", {
+//         headers: {
+//           "Content-Type": "application/json",
+//         },
+//         method: "PATCH",
+//         body: JSON.stringify({
+//           productId: productId,
+//           quantity: quantity,
+//         }),
+//       })
+//         .then((res) => res.json())
+//         .then((data) => {
+//           if (data.code == "success") {
+//             location.reload();
+//           }
+//         });
+//     });
+//   });
+// }

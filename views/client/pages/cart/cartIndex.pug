@@ -1,0 +1,66 @@
+extends ../../layouts/cartDefault.pug
+block main 
+ .container-fluid
+    .row.px-xl-5
+        .col-lg-8.table-responsive.mb-5
+            table(class="table table-light table-borderless table-hover text-center mb-0 " cart-table)
+                thead.thead-dark
+                    tr
+                        th STT
+                        th Products
+                        th Name
+                        th Price
+                        th Quantity
+                        th Total
+                        th Remove
+                tbody.align-middle
+                    each item, index in products
+                        tr
+                            td #{index+1}
+                            td.align-middle
+                                img(src=item.thumbnail, alt=item.title , style="width: 50px;")
+                            td.align-middle
+                                a(href=`/products/detail/${item.slug}`) #{item.title}
+                            td.align-middle $#{item.priceNew.toLocaleString()}
+                            td.align-middle
+                                .input-group.quantity.mx-auto(style="width: 120px;")
+                                    .input-group-btn
+                                        button.btn.btn-sm.btn-primary.btn-minus
+                                            i.fa.fa-minus
+                                    input.form-control.form-control-sm.bg-secondary.border-0.text-center(
+                                    name="quantity"
+                                    value=item.quantity
+                                    min="1"
+                                    item-id=item.productId
+                                    )
+                                    .input-group-btn
+                                        button.btn.btn-sm.btn-primary.btn-plus
+                                            i.fa.fa-plus
+
+                            td.align-middle $#{item.total.toLocaleString()}
+                            td.align-middle
+                                button.btn.btn-sm.btn-danger
+                                    a( href=`/cart/delete/${item.productId}`)
+                                     i.fa.fa-times
+           
+        .col-lg-4
+            form.mb-30(action)
+                .input-group
+                    input.form-control.border-0.p-4(type="text", placeholder="Coupon Code")
+                    .input-group-append
+                        button.btn.btn-primary Apply Coupon
+            h5.section-title.position-relative.text-uppercase.mb-3
+                span.bg-secondary.pr-3 Cart Summary
+            .bg-light.p-30.mb-5
+                .border-bottom.pb-2
+                    .d-flex.justify-content-between.mb-3
+                        h6 Subtotal
+                        h6 $#{total.toLocaleString()}
+                    .d-flex.justify-content-between
+                        h6.font-weight-medium Shipping
+                        h6.font-weight-medium Free Ship
+                .pt-2
+                    .d-flex.justify-content-between.mt-2
+                        h5 Total
+                        h5 $#{total.toLocaleString()}
+                    button.btn.btn-block.btn-primary.font-weight-bold.my-3.py-3 Proceed To Checkout

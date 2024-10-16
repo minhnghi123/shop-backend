@@ -9,12 +9,11 @@ const home = async (req, res) => {
   for (let product of products) {
     let price = product.price;
     let discount = product.discountPercentage;
-    let newPrice = price - (price * discount) / 100;
-    newPrice = newPrice.toFixed(2);
-    product.newPrice = newPrice;
+    let priceNew = price - (price * discount) / 100;
+    priceNew = priceNew.toFixed(2);
+    product.priceNew = priceNew;
   }
-  res.render("client/pages/products/index", {
-    pageTitle: "Products Pages",
+  res.render("client/pages/products/search", {
     products,
   });
 };
@@ -62,7 +61,7 @@ const category = async (req, res) => {
     product.price = product.price.toLocaleString();
   }
   // console.log(products);
-  res.render("client/pages/products/index", {
+  res.render("client/pages/products/search", {
     pageTitle: specificCategory.title,
     products,
   });

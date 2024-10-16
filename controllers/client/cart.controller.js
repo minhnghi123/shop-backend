@@ -1,6 +1,7 @@
 const Cart = require("../../models/cart.model");
 const Product = require("../../models/product.model");
 module.exports.addPost = async (req, res) => {
+  console.log(req.body);
   const cartId = req.cookies.cartId;
   const cart = await Cart.findOne({
     _id: cartId,
@@ -32,14 +33,19 @@ module.exports.index = async (req, res) => {
   const cart = await Cart.findOne({
     _id: cartId,
   });
+
+  // console.log(cart);
   const products = cart.products;
+  // console.log(products);
   let total = 0;
+
   for (const item of products) {
     const infoItem = await Product.findOne({
       _id: item.productId,
       deleted: false,
       status: "active",
     });
+    // if (infoItem != null) console.log(infoItem.thumbnail);
     item.thumbnail = infoItem.thumbnail;
     item.title = infoItem.title;
     item.slug = infoItem.slug;
@@ -51,7 +57,7 @@ module.exports.index = async (req, res) => {
     item.total = item.priceNew * item.quantity;
     total += item.total;
   }
-  res.render("client/pages/cart/index", {
+  res.render("client/pages/cart/cartIndex", {
     pageTitle: "Giỏ hàng",
     products: products,
     total: total,

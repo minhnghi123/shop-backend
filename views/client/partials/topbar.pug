@@ -1,0 +1,71 @@
+//  Topbar Start 
+.container-fluid
+  .row.bg-secondary.py-1.px-xl-5
+    .col-lg-6.d-none.d-lg-block
+      .d-inline-flex.align-items-center.h-100
+        a.text-body.mr-3(href) About
+        a.text-body.mr-3(href) Contact
+        a.text-body.mr-3(href) Help
+        a.text-body.mr-3(href) FAQs
+    .col-lg-6.text-center.text-lg-right
+      .d-inline-flex.align-items-center
+        .btn-group
+          button.btn.btn-sm.btn-light.dropdown-toggle(type="button", data-toggle="dropdown").
+            
+            My Account
+            
+          .dropdown-menu.dropdown-menu-right
+            button.dropdown-item(type="button") Sign in
+            button.dropdown-item(type="button") Sign up
+        .btn-group.mx-2
+          button.btn.btn-sm.btn-light.dropdown-toggle(type="button", data-toggle="dropdown").
+            
+            USD
+            
+          .dropdown-menu.dropdown-menu-right
+            button.dropdown-item(type="button") EUR
+            button.dropdown-item(type="button") GBP
+            button.dropdown-item(type="button") CAD
+        .btn-group
+          button.btn.btn-sm.btn-light.dropdown-toggle(type="button", data-toggle="dropdown").
+            
+            EN
+            
+          .dropdown-menu.dropdown-menu-right
+            button.dropdown-item(type="button") FR
+            button.dropdown-item(type="button") AR
+            button.dropdown-item(type="button") RU
+      .d-inline-flex.align-items-center.d-block.d-lg-none
+        a.btn.px-0.ml-2(href)
+          i.fas.fa-heart.text-dark
+          span.badge.text-dark.border.border-dark.rounded-circle(style="padding-bottom: 2px") 0
+        a.btn.px-0.ml-2(href)
+          i.fas.fa-shopping-cart.text-dark
+          span.badge.text-dark.border.border-dark.rounded-circle(style="padding-bottom: 2px") 0
+  .row.align-items-center.bg-light.py-3.px-xl-5.d-none.d-lg-flex
+    .col-lg-4
+      a.text-decoration-none(href="/")
+        span.h1.text-uppercase.text-primary.bg-dark.px-2 Shop
+        span.h1.text-uppercase.text-dark.bg-primary.px-2.ml-n1 Online
+    .col-lg-4.col-6.text-left
+      form(action="/products/search"
+          method="GET")
+        .input-group
+          input.form-control(
+            type="text"
+              placeholder="Nhập từ khóa..."
+              class="form-control"
+              name="keyword"
+              value=keyword
+          )
+          .input-group-append
+             button(
+              type="submit"
+              class="btn"
+            )
+              span.input-group-text.bg-transparent.text-primary
+                i.fa.fa-search
+    .col-lg-4.col-6.text-right
+      p.m-0 Customer Service
+      h5.m-0 +012 345 6789
+//  Topbar End 
