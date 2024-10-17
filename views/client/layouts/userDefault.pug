@@ -1,0 +1,30 @@
+meta(charset="UTF-8")
+meta(http-equiv="X-UA-Compatible", content="IE=edge")
+meta(name="viewport", content="width=device-width,initial-scale=1")
+title #{pageTitle}
+link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.11.2/css/all.css")
+link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Merriweather:900&family=Roboto:300,400,500,700,900&display=swap")
+link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/css/bootstrap.min.css")
+link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/css/mdb.min.css")
+link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/css/style.css")
+body
+    - if (messages.success)
+        div(
+            class="alert alert-success alert-message"
+            alert-message
+        ) #{messages.success}
+
+    - if (messages.error)
+      div(
+        class="alert alert-danger alert-message"
+        alert-message
+      ) #{messages.error}
+.row
+block main
+    
+//  Material form register 
+script(src="/js/script.js") 
+script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/js/jquery.min.js")
+script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/js/popper.min.js")
+script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/js/bootstrap.min.js")
+script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/js/mdb.min.js")
