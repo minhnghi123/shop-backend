@@ -1,0 +1,44 @@
+meta(charset="UTF-8")
+meta(http-equiv="X-UA-Compatible", content="IE=edge")
+meta(name="viewport", content="width=device-width,initial-scale=1")
+title #{pageTitle}
+link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.11.2/css/all.css")
+link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Merriweather:900&family=Roboto:300,400,500,700,900&display=swap")
+link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/css/bootstrap.min.css")
+link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/css/mdb.min.css")
+link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/css/style.css")
+body
+    - if (messages.success)
+        div(
+            class="alert alert-success alert-message"
+            alert-message
+        ) #{messages.success}
+
+    - if (messages.error)
+      div(
+        class="alert alert-danger alert-message"
+        alert-message
+      ) #{messages.error}
+.row
+  .col-md-6
+    .card-body.px-lg-5.pt-0
+      h2.h1.my-5(style="font-weight: 800; font-family:sans-serif") #{pageTitle}
+      form.text-center(action="/user/login" method="post")
+        .md-form.my-5
+          input#email.form-control(type="email",name="email", required)
+          label(for="email") Email
+        //  Password 
+        .md-form.my-5
+          input#materialRegisterFormPassword.form-control(type="password",name="password", aria-describedby="materialRegisterFormPasswordHelpBlock", required)
+          label(for="materialRegisterFormPassword") Mật khẩu
+        //  Sign up button 
+        button.btn.btn-primary.btn-rounded.btn-block.waves-effect.z-depth-0(type="submit") Đăng Nhập
+ 
+  .col-md-6.px-0
+    img(src="https://res.cloudinary.com/dabykheek/image/upload/v1633553639/media/images/paul-gilmore-ysA6qL8j-OI-unsplash_pjweno.jpg", alt, width="100%", height="auto")
+//  Material form register 
+script(src="/js/script.js") 
+script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/js/jquery.min.js")
+script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/js/popper.min.js")
+script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/js/bootstrap.min.js")
+script(type="text/javascript", src="https://cdn.jsdelivr.net/npm/mdbootstrap4-pro@1.1.0/js/mdb.min.js")
