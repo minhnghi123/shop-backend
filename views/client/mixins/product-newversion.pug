@@ -13,9 +13,9 @@ mixin productNewVersion(items)
                 .text-center.py-4
                     a.h6.text-decoration-none.text-truncate(href=`/products/detail/${item.slug}`) #{item.title}
                     .d-flex.align-items-center.justify-content-center.mt-2
-                        h5 $#{item.priceNew}
+                        h5 #{item.priceNew}
                         h6.text-muted.ml-2
-                        del $#{item.price}
+                        del #{item.price}
                     .d-flex.align-items-center.justify-content-center.mb-1
                         small.fa.fa-star.text-primary.mr-1
                         small.fa.fa-star.text-primary.mr-1

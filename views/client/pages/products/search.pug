@@ -11,92 +11,42 @@ block main
         h5.section-title.position-relative.text-uppercase.mb-3
           span.bg-secondary.pr-3 Filter by price
         .bg-light.p-4.mb-30
-          form
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#price-all(type="checkbox", checked)
+         .form-group( form-price)
+            // Price Filter Start
+            .custom-control.custom-radio.d-flex.align-items-center.justify-content-between.mb-3
+              input.custom-control-input#price-all(type="radio" name="price" value="all")
               label.custom-control-label(for="price-all") All Price
               span.badge.border.font-weight-normal 1000
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#price-1(type="checkbox")
-              label.custom-control-label(for="price-1") $0 - $100
+            
+            .custom-control.custom-radio.d-flex.align-items-center.justify-content-between.mb-3
+              input.custom-control-input#price-1(type="radio" name="price" value="0-100000")
+              label.custom-control-label(for="price-1") 0 đ - 100.000 đ
               span.badge.border.font-weight-normal 150
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#price-2(type="checkbox")
-              label.custom-control-label(for="price-2") $100 - $200
+
+            .custom-control.custom-radio.d-flex.align-items-center.justify-content-between.mb-3
+              input.custom-control-input#price-2(type="radio" name="price" value="100000-200000")
+              label.custom-control-label(for="price-2") 100.000 đ - 200.000 đ
               span.badge.border.font-weight-normal 295
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#price-3(type="checkbox")
-              label.custom-control-label(for="price-3") $200 - $300
+
+            .custom-control.custom-radio.d-flex.align-items-center.justify-content-between.mb-3
+              input.custom-control-input#price-3(type="radio" name="price" value="200000-300000")
+              label.custom-control-label(for="price-3") 200.000 đ - 300.000 đ
               span.badge.border.font-weight-normal 246
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#price-4(type="checkbox")
-              label.custom-control-label(for="price-4") $300 - $400
+
+            .custom-control.custom-radio.d-flex.align-items-center.justify-content-between.mb-3
+              input.custom-control-input#price-4(type="radio" name="price" value="300000-400000")
+              label.custom-control-label(for="price-4") 300.000 đ - 400.000 đ
               span.badge.border.font-weight-normal 145
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between
-              input.custom-control-input#price-5(type="checkbox")
-              label.custom-control-label(for="price-5") $400 - $500
+
+            .custom-control.custom-radio.d-flex.align-items-center.justify-content-between
+              input.custom-control-input#price-5(type="radio" name="price" value="400000-500000")
+              label.custom-control-label(for="price-5") 400.000 đ - 500.000 đ
               span.badge.border.font-weight-normal 168
-        //  Price End 
-        //  Color Start 
-        h5.section-title.position-relative.text-uppercase.mb-3
-          span.bg-secondary.pr-3 Filter by color
-        .bg-light.p-4.mb-30
-          form
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#color-all(type="checkbox", checked)
-              label.custom-control-label(for="price-all") All Color
-              span.badge.border.font-weight-normal 1000
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#color-1(type="checkbox")
-              label.custom-control-label(for="color-1") Black
-              span.badge.border.font-weight-normal 150
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#color-2(type="checkbox")
-              label.custom-control-label(for="color-2") White
-              span.badge.border.font-weight-normal 295
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#color-3(type="checkbox")
-              label.custom-control-label(for="color-3") Red
-              span.badge.border.font-weight-normal 246
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#color-4(type="checkbox")
-              label.custom-control-label(for="color-4") Blue
-              span.badge.border.font-weight-normal 145
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between
-              input.custom-control-input#color-5(type="checkbox")
-              label.custom-control-label(for="color-5") Green
-              span.badge.border.font-weight-normal 168
-        //  Color End 
-        //  Size Start 
-        h5.section-title.position-relative.text-uppercase.mb-3
-          span.bg-secondary.pr-3 Filter by size
-        .bg-light.p-4.mb-30
-          form
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#size-all(type="checkbox", checked)
-              label.custom-control-label(for="size-all") All Size
-              span.badge.border.font-weight-normal 1000
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#size-1(type="checkbox")
-              label.custom-control-label(for="size-1") XS
-              span.badge.border.font-weight-normal 150
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#size-2(type="checkbox")
-              label.custom-control-label(for="size-2") S
-              span.badge.border.font-weight-normal 295
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#size-3(type="checkbox")
-              label.custom-control-label(for="size-3") M
-              span.badge.border.font-weight-normal 246
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between.mb-3
-              input.custom-control-input#size-4(type="checkbox")
-              label.custom-control-label(for="size-4") L
-              span.badge.border.font-weight-normal 145
-            .custom-control.custom-checkbox.d-flex.align-items-center.justify-content-between
-              input.custom-control-input#size-5(type="checkbox")
-              label.custom-control-label(for="size-5") XL
-              span.badge.border.font-weight-normal 168
-        //  Size End 
+            // Price Filter End
+
+     
+        
+       
       //  Shop Sidebar End 
       //  Shop Product Start 
       if(products.length>0)

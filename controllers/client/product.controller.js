@@ -3,14 +3,14 @@ const productCategory = require("../../models/product-category.model");
 const Products = require("../../models/product.model");
 const paginationHelper = require("../../helpers/pagination.helper");
 const home = async (req, res) => {
-  // //pagination
+  // Pagination
   const data = await paginationHelper.pagination(
     req.query.page,
     req.query.limit
   );
-  //end pagination
+  // End pagination
 
-  //sort
+  // Sort
   let sort = {};
   const keyName = req.query.keyName;
   const keyValue = req.query.keyValue;
@@ -19,10 +19,26 @@ const home = async (req, res) => {
   } else {
     sort["price"] = "desc";
   }
-  //end sort
+  // End sort
+
+  // Price filter
+  let priceFilter = {};
+  if (req.query.price) {
+    if (req.query.price !== "all") {
+      let value = req.query.price.split("-");
+      priceFilter = {
+        $gte: parseInt(value[0]),
+        $lte: parseInt(value[1]),
+      };
+    }
+  }
+
+  const hasPriceFilter = Object.keys(priceFilter).length > 0;
+
   const products = await productModel
     .find({
       deleted: false,
+      ...(hasPriceFilter ? { price: priceFilter } : {}),
     })
     .limit(data.limitItems)
     .skip(data.skip)
@@ -32,17 +48,27 @@ const home = async (req, res) => {
     let price = product.price;
     let discount = product.discountPercentage;
     let priceNew = price - (price * discount) / 100;
-    priceNew = priceNew.toFixed(2);
+    priceNew = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(priceNew);
     product.priceNew = priceNew;
+    product.price = new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(product.price);
   }
+
   const totalPage = data.totalPage;
   const currentPage = data.currentPage;
+
   res.render("client/pages/products/search", {
     products,
     totalPage,
     currentPage,
   });
 };
+
 const edit = (req, res) => {
   res.render("client/pages/products/index");
 };

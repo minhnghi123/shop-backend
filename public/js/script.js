@@ -75,3 +75,27 @@ if (selectLimit) {
     selectLimit.value = `${limit}`;
   }
 }
+const filterByPrice = document.querySelector("[form-price]");
+if (filterByPrice) {
+  let url = new URL(location.href);
+  const checkedBoxes = filterByPrice.querySelectorAll(".custom-control-input");
+  checkedBoxes.forEach((box) => {
+    box.addEventListener("change", () => {
+      const value = box.value;
+      if (value) url.searchParams.set("price", value);
+      else url.searchParams.delete("price");
+      location.href = url;
+    });
+  });
+  const currentCheckBox = filterByPrice.querySelectorAll(
+    ".custom-control-input"
+  );
+  if (currentCheckBox.length > 0) {
+    const value = url.searchParams.get("price");
+    currentCheckBox.forEach((box) => {
+      if (box.value === value) {
+        box.checked = true;
+      }
+    });
+  }
+}
