@@ -1,21 +1,37 @@
 const Cart = require("../../models/cart.model");
+const User = require("../../models/user.model");
+module.exports.checkCart = async (req, res, next) => {
+  if (!req.cookies.userToken) {
+    req.flash("error", "Yêu cầu đăng nhập !");
+    res.redirect("/user/login");
+    return;
+  }
+  next();
+};
 module.exports.cart = async (req, res, next) => {
-  if (!req.cookies.cartId) {
-    const expiresDay = 365 * 24 * 60 * 60 * 1000;
-    const cart = new Cart({
-      expireAt: Date.now() + expiresDay,
-    });
-    await cart.save();
-    res.cookie("cartId", cart.id, {
-      expires: new Date(Date.now() + expiresDay),
-    });
+  if (!req.cookies.userToken) {
     res.locals.miniCart = 0;
   } else {
-    const cart = await Cart.findOne({
-      _id: req.cookies.cartId,
+    const user = await User.findOne({
+      token: req.cookies.userToken,
+      deleted: false,
+      status: "active",
     });
-
-    res.locals.miniCart = cart.products.length;
+    const userCart = await Cart.findOne({
+      userId: user.id,
+    });
+    if (!userCart) {
+      const newCart = new Cart({
+        userId: user.id,
+        product: [],
+      });
+      await newCart.save();
+      res.locals.miniCart = 0;
+      res.cookie("cartId", newCart.id);
+    } else {
+      res.locals.miniCart = userCart.products.length;
+      res.cookie("cartId", userCart.id);
+    }
   }
   next();
 };

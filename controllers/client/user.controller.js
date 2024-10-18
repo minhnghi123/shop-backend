@@ -4,6 +4,7 @@ const User = require("../../models/user.model");
 const randomNumber = require("../../helpers/generateNumber.helper.js");
 const forgotPassWord = require("../../models/forgot-password.model.js");
 const sendMailHelper = require("../../helpers/sendMail.helper.js");
+const Cart = require("../../models/cart.model.js");
 module.exports.register = async (req, res) => {
   res.render("client/pages/user/register.pug", {
     pageTitle: "Đăng ký",
@@ -16,6 +17,7 @@ module.exports.login = async (req, res) => {
 };
 module.exports.logout = async (req, res) => {
   res.clearCookie("userToken");
+  res.clearCookie("cartId");
   req.flash("success", "Đăng xuất thành công");
   res.redirect("/user/login");
 };
@@ -55,7 +57,9 @@ module.exports.loginPost = async (req, res) => {
     res.redirect("back");
     return;
   }
+
   res.cookie("userToken", existedUser.token);
+
   req.flash(
     "success",
     `Chào mừng ${existedUser.username} đến với shop của chúng tôi ^.^`

@@ -3,6 +3,13 @@ block main
  .container-fluid
     .row.px-xl-5
         .col-lg-8.table-responsive.mb-5
+         if(!products.length) 
+            i Chưa có sản phẩm nào trong giỏ hàng
+            hr 
+            a(href="/products").btn.px-0.ml-2 
+                i  Mua ngay !
+                
+         else
             table(class="table table-light table-borderless table-hover text-center mb-0 " cart-table)
                 thead.thead-dark
                     tr
@@ -13,7 +20,9 @@ block main
                         th Quantity
                         th Total
                         th Remove
+
                 tbody.align-middle
+                
                     each item, index in products
                         tr
                             td #{index+1}

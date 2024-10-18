@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const cartSchema = new mongoose.Schema(
   {
-    // userId: String,
+    userId: String,
     products: Array,
-    expireAt: {
-      type: Date,
-      expires: 0,
-    },
+    // expireAt: {
+    //   type: Date,
+    //   expires: 0,
+    // },
   },
   {
     timestamps: true,
