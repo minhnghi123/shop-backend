@@ -1,10 +1,32 @@
 const productModel = require("../../models/product.model");
 const productCategory = require("../../models/product-category.model");
 const Products = require("../../models/product.model");
+const paginationHelper = require("../../helpers/pagination.helper");
 const home = async (req, res) => {
-  const products = await productModel.find({
-    deleted: false,
-  });
+  // //pagination
+  const data = await paginationHelper.pagination(
+    req.query.page,
+    req.query.limit
+  );
+  //end pagination
+
+  //sort
+  let sort = {};
+  const keyName = req.query.keyName;
+  const keyValue = req.query.keyValue;
+  if (keyName && keyValue) {
+    sort[keyName] = keyValue;
+  } else {
+    sort["price"] = "desc";
+  }
+  //end sort
+  const products = await productModel
+    .find({
+      deleted: false,
+    })
+    .limit(data.limitItems)
+    .skip(data.skip)
+    .sort(sort);
 
   for (let product of products) {
     let price = product.price;
@@ -13,8 +35,12 @@ const home = async (req, res) => {
     priceNew = priceNew.toFixed(2);
     product.priceNew = priceNew;
   }
+  const totalPage = data.totalPage;
+  const currentPage = data.currentPage;
   res.render("client/pages/products/search", {
     products,
+    totalPage,
+    currentPage,
   });
 };
 const edit = (req, res) => {
