@@ -17,7 +17,7 @@ const home = async (req, res) => {
   if (keyName && keyValue) {
     sort[keyName] = keyValue;
   } else {
-    sort["price"] = "desc";
+    sort["price"] = "asc";
   }
   // End sort
 
@@ -133,6 +133,37 @@ const detail = async (req, res) => {
   });
 };
 const search = async (req, res) => {
+  // Pagination
+  const data = await paginationHelper.pagination(
+    req.query.page,
+    req.query.limit
+  );
+  // End pagination
+
+  // Sort
+  let sort = {};
+  const keyName = req.query.keyName;
+  const keyValue = req.query.keyValue;
+  if (keyName && keyValue) {
+    sort[keyName] = keyValue;
+  } else {
+    sort["price"] = "asc";
+  }
+  // End sort
+
+  // Price filter
+  let priceFilter = {};
+  if (req.query.price) {
+    if (req.query.price !== "all") {
+      let value = req.query.price.split("-");
+      priceFilter = {
+        $gte: parseInt(value[0]),
+        $lte: parseInt(value[1]),
+      };
+    }
+  }
+
+  const hasPriceFilter = Object.keys(priceFilter).length > 0;
   const keyword = req.query.keyword;
   let products = [];
   // Tìm kiếm
@@ -143,18 +174,36 @@ const search = async (req, res) => {
         title: regex,
         deleted: false,
         status: "active",
+        ...(hasPriceFilter ? { price: priceFilter } : {}),
       })
-      .sort({ position: "desc" });
-    for (const item of products) {
-      item.priceNew = (1 - item.discountPercentage / 100) * item.price;
-      item.priceNew = item.priceNew.toFixed(0);
+      .limit(data.limitItems)
+      .skip(data.skip)
+      .sort(sort);
+    for (let product of products) {
+      let price = product.price;
+      let discount = product.discountPercentage;
+      let priceNew = price - (price * discount) / 100;
+      priceNew = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(priceNew);
+      product.priceNew = priceNew;
+      product.price = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+      }).format(product.price);
     }
   }
+  const totalPage = data.totalPage;
+  const currentPage = data.currentPage;
+
   // Hết Tìm kiếm
   res.render("client/pages/products/search", {
     pageTitle: `Kết quả tìm kiếm: ${keyword}`,
     keyword: keyword,
     products: products,
+    totalPage: totalPage,
+    currentPage: currentPage,
   });
 };
 module.exports = { home, edit, dele, category, detail, search };
