@@ -159,7 +159,15 @@ module.exports.indexPost = async (req, res) => {
   sendMailHelper.sendMail(orderInfo.email, subject, text);
   const newOrder = new Order(orderInfo);
   await newOrder.save();
-  products = [];
+  await Cart.updateOne(
+    { _id: req.cookies.cartId },
+    {
+      $set: {
+        products: [],
+      },
+    }
+  );
+
   res.redirect(`/order/success/${newOrder.id}`);
 };
 module.exports.success = async (req, res) => {

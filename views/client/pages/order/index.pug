@@ -11,13 +11,13 @@ block main
         .row
           .col-md-6.form-group
             label Họ và tên
-            input.form-control(name="username" type="text", placeholder="Nguyễn Văn A" required)
+            input.form-control(name="username" type="text", value =user.username required)
           .col-md-6.form-group
             label E-mail
-            input.form-control(name="email" type="text", placeholder="example@email.com" required)
+            input.form-control(name="email" type="text", value =user.email required)
           .col-md-6.form-group
             label Số điện thoại
-            input.form-control(name="SDT" type="text", placeholder="0123xxxxxx" required)
+            input.form-control(name="SDT" type="text", value =user.phone required)
           .col-md-6.form-group
             label Địa chỉ
             input.form-control(name="address" type="text", placeholder="Quận 11 ..." required)
