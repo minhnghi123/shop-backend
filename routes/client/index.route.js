@@ -17,4 +17,7 @@ module.exports.routeClient = (app) => {
   app.use("/order", orderRoute);
   app.use("/user", userRoute);
   app.use("/notification", notificationRoute);
+  app.get("*", (req, res) => {
+    res.render("client/pages/error/index", {});
+  });
 };
