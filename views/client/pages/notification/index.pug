@@ -1,0 +1,81 @@
+extends ../../layouts/cartDefault.pug
+block main
+ .container
+  .app
+    .header
+      h2
+        span.title Thông báo
+        span.unread-notification-number 3
+      p Mark all as read
+    .body
+      .notification.unreaded
+        .avatar
+          img(src="assets/images/avatar-mark-webber.webp")
+        .text
+          .text-top
+            p
+              span.profil-name Mark Webber
+              |  reacted to your recent post 
+              b My first tournament today!
+              span.unread-dot
+          .text-bottom 1m ago
+      .notification.unreaded
+        .avatar
+          img(src="assets/images/avatar-angela-gray.webp")
+        .text
+          .text-top
+            p
+              span.profil-name Angela Gray
+              |  followed you
+              span.unread-dot
+          .text-bottom 5m ago
+      .notification.unreaded
+        .avatar
+          img(src="assets/images/avatar-jacob-thompson.webp")
+        .text
+          .text-top
+            p
+              span.profil-name Jacob Thompson
+              |  has joined your group 
+              b.b-blue Chess Club
+              span.unread-dot
+          .text-bottom 1 day ago
+
+
+              
+      .notification.readed.picture
+        .avatar
+          img(src="assets/images/avatar-kimberly-smith.webp")
+        .text
+          .text-top
+            p
+              span.profil-name Kimberly Smith
+              |  commented on your picture
+
+          .text-bottom 1 week ago
+        .commented-picture
+          img(src="assets/images/image-chess.webp")
+      .notification.readed
+        .avatar
+          img(src="assets/images/avatar-nathan-peterson.webp")
+        .text
+          .text-top
+            p
+              span.profil-name Nathan Peterson
+              |  reacted to your recent post
+
+              b 5 end-game strategies to increase your win rate
+          .text-bottom 2 weeks ago
+      .notification.readed
+        .avatar
+          img(src="assets/images/avatar-anna-kim.webp")
+        .text
+          .text-top
+            p
+              span.profil-name Anna Kim 
+              | left the group
+              b.b-blue.
+                
+                Chess Club
+          .text-bottom 2 weeks ago
+//- script(src="script.js")
